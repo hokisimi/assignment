@@ -3,11 +3,13 @@
 # 1. 문제해결 방법
 
  * 데이터베이스
- > Mysql 데이터베이스를 사용하여 테이블을 생성 후 첨부된 데이터 csv파일을 테이블에 import.
+ 
+   Mysql 데이터베이스를 사용하여 테이블을 생성 후 첨부된 데이터 csv파일을 테이블에 import.
 
  * 프로젝트 생성과 구조
     
-    spring boot 프레임워크를 사용하여 톰캣이 내장된 형태의 Maven 프로젝트로 생성. RestController를 사용하여 json 형태로 입출력.
+   spring boot 프레임워크를 사용하여 톰캣이 내장된 형태의 Maven 프로젝트로 생성. 
+   RestController를 사용하여 json 형태로 입출력.
 
  * 과제문제 해결방식
  
