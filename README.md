@@ -1,4 +1,3 @@
-# assignment
 # 카카오페이 채용과제과제
 
 # 1. 문제해결 방법
@@ -62,11 +61,9 @@
 
 # 4. 프로젝트 실행환경
 
-Mysql 서버가 설치되어 있어야 하며 src/main/resources/database폴더에 dump된 test.sql을 로컬pc에 복원
-
-명령어 : mysql -u[사용자] -p[비밀번호]  [데이터베이스이름]< [파일이름]
-  
-mysql의 설정정보는 src/main/resources/application.properties 파일을 수정하시면 됩니다.
+* Mysql 서버가 설치되어 있어야 하며 src/main/resources/database폴더에 dump된 test.sql을 로컬pc에 복원
+* 명령어 : mysql -u[사용자] -p[비밀번호]  [데이터베이스이름]< [파일이름]
+* mysql의 설정정보는 src/main/resources/application.properties 파일을 수정하시면 됩니다.
 
 # 5. 실행 방법
 
@@ -81,17 +78,17 @@ mysql의 설정정보는 src/main/resources/application.properties 파일을 수
 
 # 7. API 호출
 
-1번문제 Api호출 경로 (GET)
-http://localhost:8090/totalbyyear 
+* 1번문제 Api호출 경로 (GET)
+  http://localhost:8090/totalbyyear 
 
-2번문제 Api호출 경로 (GET)
-http://localhost:8090/nodealbyyear
+* 2번문제 Api호출 경로 (GET)
+  http://localhost:8090/nodealbyyear
 
-3번문제 Api호출 경로 (GET)
-http://localhost:8090/totalbyyearNbranch
+* 3번문제 Api호출 경로 (GET)
+  http://localhost:8090/totalbyyearNbranch
 
-4번문제 Api호출 경로 (POST)
-http://localhost:8090/totalbybranch?brName=판교점
+* 4번문제 Api호출 경로 (POST)
+  http://localhost:8090/totalbybranch?brName=판교점
 
 
 
