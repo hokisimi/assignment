@@ -6,8 +6,8 @@
  > Mysql 데이터베이스를 사용하여 테이블을 생성 후 첨부된 데이터 csv파일을 테이블에 import.
 
  * 프로젝트 생성과 구조
-  spring boot 프레임워크를 사용하여 톰캣이 내장된 형태의 Maven 프로젝트로 생성.
-  RestController를 사용하여 json 형태로 입출력.
+    
+    spring boot 프레임워크를 사용하여 톰캣이 내장된 형태의 Maven 프로젝트로 생성. RestController를 사용하여 json 형태로 입출력.
 
  * 과제문제 해결방식
  
@@ -40,11 +40,11 @@
    
  Junit와 mokito 을 이용하여 테스트하여 크게 아래 2가지 기능을 점검함.
   
- - Controller 테스트
+ 1) Controller 테스트 
  
  Controller만을 테스트하여 4개 api에 대해서 컨트롤러 기능 검증.
     
- - Service 테스트
+ 2) Service 테스트 
  
  Service의 함수를 호출하여 실제 함수호출이 이루어졌는지와 결과를 검증.
  
