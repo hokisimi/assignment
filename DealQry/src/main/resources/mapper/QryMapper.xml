@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding = "UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.kakaopay.dealqry.mapper.QryMapper">
+
+	<select id="getTotalByYear" resultType="com.kakaopay.dealqry.domain.TotalByYear">
+		select x.year
+		     , y.acnt_nm as name
+		     , x.acctNo
+		     , x.sumAmt
+		  from (
+		        select t.year
+		             , t.acctNo
+		             , t.sumAmt
+			     from (
+						 select DATE_FORMAT(a.deal_dt, '%Y') as year
+							   , a.acnt_no acctNo
+							   , sum(a.deal_amt - a.cmsn) sumAmt
+							from test.deal_info a
+						   where DATE_FORMAT(a.deal_dt, '%Y') = '2018'
+						     and a.cncl_yn = 'N'
+						   group by year, a.acnt_no
+						   order by year, sumAmt desc limit 1
+						  ) t
+						  union 
+					select t.year
+						 , t.acctNo
+						 , t.sumAmt
+					 from (
+						 select DATE_FORMAT(a.deal_dt, '%Y') as year
+							   , a.acnt_no acctNo
+							   , sum(a.deal_amt - a.cmsn) sumAmt
+							from test.deal_info a
+						   where DATE_FORMAT(a.deal_dt, '%Y') = '2019'
+						     and a.cncl_yn = 'N'
+						   group by year, a.acnt_no
+						   order by year, sumAmt desc limit 1
+						  ) t
+		              ) x join test.cust_info y
+		              on x.acctNo = y.acnt_no
+	</select>
+	<select id="getNoDealByYear" resultType="com.kakaopay.dealqry.domain.NoDealByYear">
+		select '2018' year
+		     , x.acnt_nm name
+		     , x.acnt_no acctNo
+		  from test.cust_info x
+		  where not exists ( select 'y' 
+		                       from test.deal_info a
+							  where a.deal_dt between '20180101' and '20181231'
+		                        and a.acnt_no = x.acnt_no)		
+		union 
+		select '2019' year
+		     , x.acnt_nm name
+		     , x.acnt_no acctNo
+		  from test.cust_info x
+		  where not exists ( select 'y' 
+		                       from test.deal_info a
+							  where a.deal_dt between '20190101' and '2011231'
+		                        and a.acnt_no = x.acnt_no)   
+	</select>
+	<select id="getTotalByYearNBranch" resultType="com.kakaopay.dealqry.domain.TotalByYearNBranch">
+		select DATE_FORMAT(a.deal_dt, '%Y') year
+		     , c.brch_nm brName
+		     , c.brch_code brCode
+		     , sum(a.deal_amt) sumAmt
+		  from test.deal_info a join test.cust_info b on a.acnt_no = b.acnt_no join test.branch c on b.brch_code = c.brch_code
+		 where a.cncl_yn = 'N'
+		 group by DATE_FORMAT(a.deal_dt, '%Y'), c.brch_nm, c.brch_code
+		 order by year asc, sumAmt desc
+	</select>
+	<select id= "getTotalByBranch" resultType="com.kakaopay.dealqry.domain.TotalByBranch">
+		SELECT c.brch_nm brName,
+			   c.brch_code brCode,
+			   SUM(a.deal_amt - a.cmsn) sumAmt
+		  FROM test.deal_info a
+			   JOIN
+			   (SELECT acnt_no,
+			           acnt_nm,
+			           CASE
+			               WHEN brch_code = 'B' THEN 'A' ELSE brch_code
+			            END AS brch_code
+			    FROM test.cust_info) b ON a.acnt_no = b.acnt_no
+			    JOIN
+			    test.branch c ON b.brch_code = c.brch_code
+			WHERE c.brch_nm = #{brName} AND a.cncl_yn = 'N'
+			GROUP BY c.brch_nm , c.brch_code
+	</select>
+</mapper>
+	
